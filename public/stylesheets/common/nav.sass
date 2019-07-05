@@ -1,0 +1,87 @@
+nav
+  margin-bottom: 1em
+  font-family: 'Roboto', sans-serif
+
+  a:visited
+    color: black
+
+  .navBar-sm-bar
+    border-bottom: 2px solid #000
+    height: 2.9em
+    width: 100%
+    position: relative
+
+    span:first-child
+      font-weight: bold
+      font-size: 1.25rem
+      position: absolute
+      top: 0.5em
+      left: 0.5em
+
+    button:nth-child(2)
+      border: none
+      background: none
+      position: absolute
+      right: 0.5em
+      top: 0.6em
+      cursor: pointer
+
+      img
+        width: 2.5em
+
+  .navBar-sm-expand
+    overflow: hidden
+
+    div
+      position: relative
+      height: 3em
+      border-bottom: 0.5px solid #000
+      font-weight: bold
+      overflow: hidden
+      cursor: pointer
+
+      span
+        position: absolute
+        top: 0.8em
+        right: 1em
+
+.appear
+  display: block
+
+.disappear
+  display: none
+
+.navBar-lg
+  border-bottom: 2px solid black
+  position: relative
+  height: 3em
+  width: 100%
+
+.navBar-lg-logo
+  font-weight: bold
+  font-size: 1.3rem
+  position: absolute
+  top: 0.5em
+  left: 0.5em
+
+.navItems
+  text-align: right
+
+  div
+    display: inline-block
+    height: 2.9em
+    cursor: pointer
+
+    span
+      font-weight: bold
+      font-size: 1.2rem
+      margin-left: 1em
+      margin-right: 1em
+      position: relative
+      top: 0.7em
+
+  div:hover
+    border-bottom: 4px solid black
+
+  .active div
+    border-bottom: 4px solid black

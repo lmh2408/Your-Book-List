@@ -1,0 +1,57 @@
+.loginDisplay
+  font-family: 'Open Sans', sans-serif
+  padding-top: 3em
+  height: 20em
+
+.loginAlert
+  height: 4em
+  text-align: center
+  font-size: 0.9rem
+
+.loginLoginForm, .loginRegisterForm
+  input
+    display: block
+    font-size: 0.9rem
+    border: 1px solid black
+    padding-bottom: 0.3em
+    padding-left: 0.6em
+    margin-bottom: 0.9em
+    margin-left: auto
+    margin-right: auto
+    width: 16em
+    height: 2.4em
+
+  button
+    display: block
+    font-weight: bold
+    font-size: 0.9rem
+    width: 16.2em
+    height: 2.4em
+    margin-left: auto
+    margin-right: auto
+    margin-bottom: 0.9em
+    cursor: pointer
+
+%loginButtonBlack
+  background: black
+  border: none
+  color: white
+
+%loginButtonWhite
+  background: white
+  border: 1px solid black
+  color: black
+
+.loginLoginForm
+  button:first-of-type
+    @extend %loginButtonBlack
+
+  button:nth-of-type(2)
+    @extend %loginButtonWhite
+
+.loginRegisterForm
+  button:first-of-type
+    @extend %loginButtonWhite
+
+  button:nth-of-type(2)
+    @extend %loginButtonBlack
