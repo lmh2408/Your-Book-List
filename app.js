@@ -1,17 +1,15 @@
 var express = require('express');
 var path = require('path');
-var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
-
 var indexRouter = require('./routes/index');
+
 
 var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -20,6 +18,42 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+var mongoose = require('mongoose');
+mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useCreateIndex: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', ()=>{console.log('Connected to '+ process.env.DATABASE_URL)});
+
+
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+var sess = {
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    store: new RedisStore({
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
+      db: process.env.REDIS_DB,
+    }),
+    unset: 'destroy'
+  }
+};
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1);
+  sess.cookie.secure = true;
+}
+app.use(session(sess));
+
+
+var passport = require('./ctrller').passport.localStrat;
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use('/', indexRouter);
+
 
 module.exports = app;

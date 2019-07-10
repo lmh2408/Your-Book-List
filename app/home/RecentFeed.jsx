@@ -18,7 +18,7 @@ export default class RecentFeed extends React.Component {
 
       var item =
         <div className={itemClass} key={i}>
-          <a target="_blank" href={rssItems[i].link}>
+          <a target="_blank" href={rssItems[i].link} title={rssItems[i].title}>
             <div className="homeRSSImage">
               <img src={rssItems[i].thumbnail} alt=""/>
             </div>

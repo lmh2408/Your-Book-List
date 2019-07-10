@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link, NavLink } from "react-router-dom";
 
+import { AppContext } from '../context.jsx';
+
 
 export default class NavBar extends React.Component {
+  static contextType = AppContext;
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -19,7 +23,7 @@ export default class NavBar extends React.Component {
   }
 
   render() {
-    if (!this.props.authenticated) {
+    if (!this.context.authenticated) {
       var menuItems =
         <React.Fragment>
           <NavLink to='/login'><div><span>Login</span></div></NavLink>
@@ -30,15 +34,15 @@ export default class NavBar extends React.Component {
     else {
       var menuItems =
         <React.Fragment>
-          <div><span>Add book</span></div>
-          <div><span>My list</span></div>
-          <div><span>Log Out</span></div>
-          <div><span>Project Guntenburg</span></div>
+          <NavLink to='/'><div><span>Add book</span></div></NavLink>
+          <NavLink to='/'><div><span>My list</span></div></NavLink>
+          <NavLink to='/logout'><div><span>Log Out</span></div></NavLink>
+          <NavLink to='/'><div><span>Project Guntenburg</span></div></NavLink>
         </React.Fragment>
       ;
     }
 
-    if (this.props.screen === 'sm') {
+    if (this.context.screen === 'sm') {
       var navSmBar =
         <div className="navBar-sm-bar">
           <Link to='/'><span>Your-Book-list</span></Link>
@@ -70,7 +74,6 @@ export default class NavBar extends React.Component {
     }
 
     else {
-
       return (
         <nav className='navBar-lg'>
           <Link to='/'><span className='navBar-lg-logo'>Your-Book-List</span></Link>

@@ -1,6 +1,14 @@
 import React from 'react';
 
+import { AppContext } from '../context.jsx'
+import { checkLogin, checkRegister } from './Sanitize.jsx';
+import { sendForm } from './SendData.jsx';
+import { Redirect } from 'react-router-dom';
+
+
 export default class Home extends React.Component {
+  static contextType = AppContext;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -10,7 +18,16 @@ export default class Home extends React.Component {
         password: '',
         confirm: ''
       },
-      alert: ''
+      alert: '',
+      disable: false,
+      request: null,
+    }
+  }
+
+  clearRequest = ()=>{
+    if (this.state.request) {
+      this.state.request.abort();
+      this.setState({ request: null, alert: '' });
     }
   }
 
@@ -18,25 +35,38 @@ export default class Home extends React.Component {
     document.title = 'Your-Book-List/Login';
   }
 
-  handleLogin = (e)=>{
-    e.preventDefault();
-    var input = this.state.input;
-    if (!input.username || !input.password) {
-      return this.setState({alert: 'One of the fields is empty.'});
-    }
+  componentWillUnmount() {
+    this.clearRequest();
   }
 
-  handleRegister = (e)=>{
+  handleSubmit = (e)=>{
     e.preventDefault();
+    if (this.state.disable == true) return;
+    if (this.state.request) this.clearRequest();
+
+    this.setState({
+      disable: true,
+      alert: 'Sending form...' });
+
     var input = this.state.input;
-    if (!input.username || !input.password || !input.confirm) {
-      return this.setState({alert: 'One of the fields is empty.'});
-    }
+    var submitType = e.target.dataset.type;
 
-    if (input.password !== input.confirm) {
-      return this.setState({alert: 'Password confirmation does not match.'});
+    if (submitType === 'login') {
+      var url = '/api/login';
+      var check = checkLogin(input.username, input.password);
     }
+    else if (submitType === 'register') {
+      var url = '/api/register';
+      var check = checkRegister(input.username, input.password, input.confirm);
+    }
+    else return;
 
+    if (check) return this.setState({alert: check, disable: false });
+
+    sendForm(this, submitType, url, input, (err)=>{
+      if (err) return console.log(`Error ${err}`);
+      this.context.setAppContext('authenticated', true);
+    });
   }
 
   handleInput = (e)=>{
@@ -52,6 +82,7 @@ export default class Home extends React.Component {
   handleDisplay = (e)=>{
     var data = e.target.dataset.button;
 
+    this.clearRequest();
     this.setState({input: {
       username: '',
       password: '',
@@ -65,6 +96,10 @@ export default class Home extends React.Component {
   }
 
   render() {
+
+    if (this.state.redirect === true) {
+      return <Redirect to='/'/>;
+    }
 
     if (this.state.display === 'login') {
       var inputArray = ['username', 'password'];
@@ -100,7 +135,7 @@ export default class Home extends React.Component {
 
     if (this.state.display === 'login') {
       var form =
-        <form action="" onSubmit={this.handleLogin} className='loginLoginForm'>
+        <form action="" onSubmit={this.handleSubmit} className='loginLoginForm'  data-type='login'>
           {inputDisplay}
           <button type='submit'>Login</button>
           <button
@@ -111,7 +146,7 @@ export default class Home extends React.Component {
     }
     else {
       var form =
-        <form action="" onSubmit={this.handleRegister} className='loginRegisterForm'>
+        <form action="" onSubmit={this.handleSubmit} className='loginRegisterForm' data-type='register'>
           {inputDisplay}
           <button type='submit'>Register</button>
           <button
