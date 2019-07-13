@@ -72,6 +72,7 @@ function handleRequest(err, result, res) {
 exports.addToList = [
   checkLogin,
   (req, res, next)=>{
+    console.log(req.body);
     bookQuery.addOneBook(req.user._id, req.params.bookId, req.body.status, (err, result)=>{
       handleRequest(err, result, res);
     });
@@ -81,15 +82,36 @@ exports.addToList = [
 
 exports.editBookStatus = [
   checkLogin,
-  bookQuery.changeOneBook(req.user._id, req.params.bookId, req.body.status, (err, result)=>{
-    handleRequest(err, result, res);
-  });
+  (req, res, next)=>{
+    bookQuery.changeOneBook(req.user._id, req.params.bookId, req.body.status, (err, result)=>{
+      handleRequest(err, result, res);
+    });
+  }
 ];
 
 
 exports.deleteFromList = [
   checkLogin,
-  bookQuery.deleteOneBook(req.user._id, req.params.bookId, (err, result)=>{
-    handleRequest(err, result, res);
-  });
+  (req, res, next)=>{
+    bookQuery.deleteOneBook(req.user._id, req.params.bookId, (err, result)=>{
+      handleRequest(err, result, res);
+    });
+  }
 ];
+
+exports.displayAll = [
+  checkLogin,
+  (req, res, next)=>{
+    var options = {
+      skip: req.query.skip,
+      limit: req.query.limit,
+      status: req.query.status,
+      name: req.query.name,
+    };
+
+    bookQuery.listBooks(req.user._id, options, (err, result)=>{
+      if (err) return res.status(err).send(`Error: ${err}`);
+      res.status(200).json(result)
+    });
+  }
+]

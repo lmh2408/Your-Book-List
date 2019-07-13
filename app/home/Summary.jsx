@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { AppContext } from '../context.jsx';
 
@@ -21,21 +22,21 @@ export default class Summary extends React.Component {
       if (this.context.screen === 'lg') {
         var book =
           <div className='homeSummaryBook' key={i}>
-            <a href={link} target='_blank' title={list[i].bookName}>
+            <Link to={`/book/item/${list[i].bookId}`} title={list[i].bookName}>
               <div>
                 <img src={thumbnail} alt=""/>
               </div>
               <p>{list[i].bookName}</p>
-            </a>
+            </Link>
           </div>
         ;
       }
       else {
         var book =
           <div className='homeSummaryBookSm' key={i}>
-            <a href={link} target='_blank' title={list[i].bookName}>
+            <Link to={`/book/item/${list[i].bookId}`} title={list[i].bookName}>
               <p>{list[i].bookName}</p>
-            </a>
+            </Link>
           </div>
         ;
       }

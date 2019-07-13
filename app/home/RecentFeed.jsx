@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 
 export default class RecentFeed extends React.Component {
   constructor(props) {
@@ -18,13 +20,12 @@ export default class RecentFeed extends React.Component {
 
       var item =
         <div className={itemClass} key={i}>
-          <a target="_blank" href={rssItems[i].link} title={rssItems[i].title}>
+          <Link to={`/book/item/${rssItems[i].id}`} title={rssItems[i].title}>
             <div className="homeRSSImage">
               <img src={rssItems[i].thumbnail} alt=""/>
             </div>
-
             <p>{rssItems[i].title}</p>
-          </a>
+          </Link>
         </div>
       ;
 

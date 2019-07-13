@@ -37,7 +37,13 @@ router.route('/api/booklist/:bookId')
   .delete(book.deleteFromList)
   .all(block);
 
+router.route('/api/booklistall')
+  .get(book.displayAll)
 
+var rss = ctrller.api.rss;
+router.route('/api/rss/recent')
+  .get(rss.recentFeed)
+  .all(block);
 
 router.get('*', (req, res, next)=>{
   res.sendFile('index.html', {root: './public'});

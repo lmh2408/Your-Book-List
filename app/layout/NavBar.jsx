@@ -6,7 +6,7 @@ import { AppContext } from '../context.jsx';
 
 export default class NavBar extends React.Component {
   static contextType = AppContext;
-  
+
   constructor(props) {
     super(props);
     this.state = {
@@ -22,11 +22,15 @@ export default class NavBar extends React.Component {
     });
   }
 
+  deflate = ()=>{
+    this.setState({expand: false});
+  }
+
   render() {
     if (!this.context.authenticated) {
       var menuItems =
         <React.Fragment>
-          <NavLink to='/login'><div><span>Login</span></div></NavLink>
+          <NavLink to='/login' onClick={this.deflate}><div><span>Login</span></div></NavLink>
           <a target="_blank" href="http://www.gutenberg.org/"><div><span>Project Guntenburg</span></div></a>
         </React.Fragment>
       ;
@@ -34,10 +38,10 @@ export default class NavBar extends React.Component {
     else {
       var menuItems =
         <React.Fragment>
-          <NavLink to='/'><div><span>Add book</span></div></NavLink>
-          <NavLink to='/'><div><span>My list</span></div></NavLink>
-          <NavLink to='/logout'><div><span>Log Out</span></div></NavLink>
-          <NavLink to='/'><div><span>Project Guntenburg</span></div></NavLink>
+          <NavLink to='/book/add'><div onClick={this.deflate}><span>Add book</span></div></NavLink>
+          <NavLink to='/book/list'><div onClick={this.deflate}><span>My list</span></div></NavLink>
+          <NavLink to='/logout'><div onClick={this.deflate}><span>Log Out</span></div></NavLink>
+          <a target="_blank" href="http://www.gutenberg.org/"><div onClick={this.deflate}><span>Project Guntenburg</span></div></a>
         </React.Fragment>
       ;
     }

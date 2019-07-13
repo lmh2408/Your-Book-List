@@ -104,6 +104,13 @@ footer {
     font-size: 0.9rem;
     padding: 0 20em 3em 20em; } }
 
+.pageNotFound-page {
+  height: 24em;
+  padding: 3em; }
+  .pageNotFound-page h2 {
+    font-family: 'Roboto', sans-serif;
+    text-align: center; }
+
 .homeHeader {
   position: relative;
   height: 15em;
@@ -228,7 +235,7 @@ footer {
     margin-left: 2em; } }
 
 .homeSummaryBookSm {
-  border-bottom: 1px solid black;
+  border-top: 1px solid black;
   font-family: 'open sans', sans-serif;
   font-size: 0.8rem;
   font-weight: bold;
@@ -236,7 +243,7 @@ footer {
   width: 90%;
   margin-left: 1.3em;
   margin-top: 1.2em;
-  padding-bottom: 0.5em; }
+  padding-top: 0.2em; }
   .homeSummaryBookSm p {
     margin-top: 0;
     margin-bottom: 0; }
@@ -285,5 +292,368 @@ footer {
   background: white;
   border: 1px solid black;
   color: black; }
+
+.addBookInputContainer {
+  font-family: 'open sans', sans-serif;
+  padding-left: 1em;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em; }
+  .addBookInputContainer input {
+    border: 1px solid black;
+    font-size: 0.9rem;
+    width: 7em;
+    height: 2em;
+    padding: 0.5em; }
+  .addBookInputContainer button {
+    background: white;
+    border: 1px solid black;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+    font-weight: bold;
+    font-size: 0.9rem;
+    height: 2em;
+    width: 4em;
+    margin-left: 1em;
+    cursor: pointer; }
+
+.addBookHint {
+  font-family: 'open sans', sans-serif;
+  padding-left: 1em;
+  padding-bottom: 12em; }
+  .addBookHint p:first-of-type {
+    font-size: 0.8rem;
+    margin-bottom: 0.6em;
+    margin-left: 0.2em; }
+  .addBookHint div:first-of-type {
+    border: 1px solid black;
+    padding: 0.5em;
+    font-size: 0.8rem;
+    width: 19em; }
+
+@media (min-width: 750px) {
+  .addBookInputContainer {
+    padding-left: 6em; }
+  .addBookHint {
+    padding-left: 6em;
+    padding-bottom: 19em; } }
+
+@media (min-width: 1100px) {
+  .addBookInputContainer {
+    padding-left: 20em; }
+  .addBookHint {
+    padding-left: 20em; } }
+
+.viewBookContainer {
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 6em; }
+
+.viewBookHeader {
+  font-family: 'roboto', sans-serif;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 0.8em; }
+
+.viewBookThumbnail {
+  border: 1px solid black;
+  width: 10em;
+  overflow: hidden;
+  height: 16em;
+  display: inline-block;
+  position: relative; }
+  .viewBookThumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    z-index: 1; }
+  .viewBookThumbnail span {
+    position: absolute;
+    top: 21%;
+    font-family: 'roboto',sans-serif;
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: bold;
+    width: 95%;
+    left: 2%;
+    word-break: keep-all;
+    z-index: -1; }
+  .viewBookThumbnail div:first-of-type {
+    position: absolute;
+    bottom: 0;
+    background: black;
+    color: white;
+    font-family: 'open sans', sans-serif;
+    font-size: 0.8em;
+    text-align: center;
+    z-index: 2;
+    width: 100%;
+    padding: 0.3em 0; }
+
+.viewBookButtons {
+  display: inline-block;
+  position: relative;
+  top: -8em;
+  left: 2.4em; }
+  .viewBookButtons div:first-of-type {
+    width: 7.5em;
+    overflow: hidden;
+    border: 1px solid black;
+    position: relative;
+    margin-bottom: 0.7em;
+    margin-left: auto;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25); }
+    .viewBookButtons div:first-of-type select {
+      border: none;
+      width: 11em;
+      font-family: 'open sans', sans-serif;
+      font-size: 0.9rem;
+      padding: 0.3em;
+      cursor: pointer;
+      background: transparent;
+      text-transform: capitalize; }
+    .viewBookButtons div:first-of-type span {
+      cursor: pointer;
+      position: absolute;
+      right: 0.3em;
+      font-family: 'open sans', sans-serif;
+      font-size: 1.4rem;
+      transform: scale(1, 0.5);
+      z-index: -1; }
+  .viewBookButtons button {
+    font-family: 'open sans', sans-serif;
+    display: block;
+    background: white;
+    border: 1px solid black;
+    width: 6.5em;
+    height: 2.2em;
+    cursor: pointer;
+    text-align: left;
+    padding-left: 1em;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0.8em;
+    margin-left: auto; }
+  .viewBookButtons button:nth-of-type(2) {
+    color: white;
+    background: black; }
+
+.viewBookInfo p {
+  font-family: 'open sans', sans-serif;
+  margin-top: 0;
+  margin-bottom: 0.2em;
+  margin-left: 0.2em;
+  font-size: 0.8em; }
+
+.viewBookInfo p:nth-of-type(1), .viewBookInfo p:nth-of-type(2) {
+  margin-bottom: 0.6em; }
+
+.viewBookNotify {
+  border: 1px solid black;
+  position: fixed;
+  bottom: 15%;
+  background: white;
+  text-align: center;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+  padding-top: 0.5em;
+  width: 11em;
+  left: 50%;
+  padding-bottom: 1em;
+  font-family: 'open sans', sans-serif;
+  font-size: 0.8em;
+  transform: translate(-50%, 0); }
+
+@media (min-width: 750px) {
+  .viewBookContainer {
+    padding-left: 6em;
+    padding-right: 4em; }
+  .viewBookHeader {
+    font-size: 1.5rem; }
+  .viewBookThumbnail {
+    width: 16em;
+    height: 25em; }
+  .viewBookButtons {
+    top: -13em;
+    left: 4em; }
+    .viewBookButtons div:first-of-type {
+      width: 8.5em;
+      margin-left: 0;
+      margin-right: auto; }
+      .viewBookButtons div:first-of-type select {
+        font-size: 1em; }
+    .viewBookButtons button {
+      padding-left: 0.6em;
+      margin-left: 0;
+      margin-right: auto;
+      font-size: 1em;
+      height: 2em; }
+  .viewBookInfo {
+    padding-top: 0.5em; }
+    .viewBookInfo p {
+      font-size: 1em; }
+  .viewBookNotify {
+    font-size: 1em;
+    width: 26em; } }
+
+@media (min-width: 1100px) {
+  .viewBookContainer {
+    padding-left: 20em;
+    padding-right: 15em; }
+  .viewBookThumbnail {
+    width: 18.5em;
+    height: 25em; } }
+
+.viewBookLoading {
+  font-family: 'roboto', sans-serif;
+  font-size: 1.1rem;
+  text-align: center;
+  height: 14em;
+  padding-top: 2em; }
+
+.bookItem-backBtn {
+  padding-left: 1em;
+  padding-top: 1.5em;
+  padding-bottom: 2em; }
+  .bookItem-backBtn button {
+    background: white;
+    border: 1px solid black;
+    font-family: 'open sans', sans-serif;
+    font-weight: bold;
+    font-size: 0.8rem;
+    height: 2.4em;
+    width: 4.8em; }
+
+@media (min-width: 750px) {
+  .bookItem-backBtn {
+    padding-left: 6em; } }
+
+@media (min-width: 1100px) {
+  .bookItem-backBtn {
+    padding-left: 20em; } }
+
+.listBook-inputContainer div:first-of-type select, .listBook-inputContainer input {
+  padding-left: 0.5em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  font-size: 0.9rem;
+  font-family: 'open sans', sans-serif; }
+
+.listBook-inputContainer div:first-of-type, .listBook-inputContainer input, .listBook-inputContainer button {
+  border: 1px solid black;
+  background: white; }
+
+.listBook-inputContainer, .listBook-listContainer {
+  padding-left: 1em;
+  padding-right: 1em; }
+
+.listBook-inputContainer {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em; }
+  .listBook-inputContainer div:first-of-type {
+    position: relative;
+    width: 9em;
+    overflow: hidden;
+    margin-left: auto; }
+    .listBook-inputContainer div:first-of-type select {
+      position: relative;
+      text-transform: capitalize;
+      border: none;
+      width: 11.5em;
+      background: transparent;
+      z-index: 3;
+      cursor: pointer; }
+    .listBook-inputContainer div:first-of-type span {
+      position: absolute;
+      font-family: 'roboto', sans-serif;
+      transform: scale(1, 0.4);
+      font-size: 1.6rem;
+      right: 0.4em;
+      top: -0.1em;
+      z-index: 1; }
+  .listBook-inputContainer input {
+    margin-top: 1em;
+    display: block;
+    height: 2.1em;
+    width: 13em;
+    margin-left: auto; }
+  .listBook-inputContainer button {
+    display: block;
+    margin-top: 1em;
+    font-family: 'open sans', sans-serif;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-left: auto;
+    height: 2.5em;
+    width: 6em; }
+  .listBook-inputContainer p {
+    text-align: center;
+    font-size: 1rem;
+    font-family: 'open sans', sans-serif;
+    margin-top: 1em;
+    margin-bottom: 1em; }
+
+.listBook-navButtons {
+  text-align: center; }
+  .listBook-navButtons button {
+    font-family: 'open sans', sans-serif;
+    background: white;
+    border: 1px solid black;
+    font-size: 1em;
+    padding: 0.1em 1.7em;
+    font-weight: bold; }
+
+.listBook-listContainer {
+  position: relative;
+  padding-top: 2.5em;
+  padding-bottom: 2.5em; }
+
+.listBook-itemContainer {
+  margin-bottom: 1.5em; }
+  .listBook-itemContainer hr {
+    border-color: black;
+    border-style: solid;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    margin-bottom: 0;
+    margin-top: 1em; }
+
+.listBook-thumbnail {
+  border: 1px solid black;
+  overflow: hidden;
+  width: 4em;
+  height: 5.5em;
+  display: none; }
+  .listBook-thumbnail img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: top; }
+
+.listBook-itemName p {
+  font-family: 'roboto', sans-serif;
+  font-size: 0.8rem;
+  font-weight: bold; }
+
+.listBook-itemStatus {
+  border: 1px solid black;
+  width: 6em;
+  text-align: center;
+  margin-top: 1em; }
+  .listBook-itemStatus p {
+    font-size: 0.8rem;
+    font-family: 'open sans', sans-serif;
+    text-transform: capitalize;
+    margin: 0.2em 0; }
+
+@media (min-width: 750px) {
+  .listBook-thumbnail {
+    display: inline-block; }
+  .listBook-itemInfo {
+    display: inline-block;
+    width: 80%;
+    margin-left: 1em;
+    position: absolute; }
+  .listBook-inputContainer, .listBook-listContainer {
+    width: 750px;
+    margin: 0 auto; } }
 
 /*# sourceMappingURL=style.css.map */

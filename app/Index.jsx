@@ -9,14 +9,16 @@ const Home = React.lazy(()=>import('./home/Home.jsx'));
 const Login = React.lazy(()=>import('./login/Login.jsx'));
 const Logout = React.lazy(()=>import('./logout/Logout.jsx'));
 const AddBook = React.lazy(()=>import('./addbook/AddBook.jsx'));
-
+const ListBook = React.lazy(()=>import('./listbook/ListBook.jsx'));
+const BookItem = React.lazy(()=>import('./bookitem/BookItem.jsx'));
+const PageNotFound = React.lazy(()=>import('./404/PageNotFound.jsx'));
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       appContext: {
-        authenticated: false,
+        authenticated: true,
         screen: 'sm',
         setAppContext: this.setAppContext,
       },
@@ -92,16 +94,24 @@ class App extends React.Component {
                 }}/>
 
               <Route exact path='/book/add' render={()=>{
-                  if (!this.state.authenticated) {
+                  if (!this.state.appContext.authenticated) {
                     return <Redirect to='/login'/>;
                   } else return <AddBook/>;
                 }}/>
 
               <Route exact path='/book/list' render={()=>{
-                if (!this.state.authenticated) {
+                if (!this.state.appContext.authenticated) {
                   return <Redirect to='/login'/>;
                 } else return <ListBook/>;
                 }}/>
+
+              <Route exact path='/book/item/:bookid' render={({ match, history })=>{
+                if (!this.state.appContext.authenticated) {
+                  return <Redirect to='/login'/>;
+                } else return <BookItem match={match} history={history}/>;
+                }}/>
+
+              <Route component={PageNotFound}/>
 
             </Switch>
           </React.Suspense>

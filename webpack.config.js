@@ -30,13 +30,13 @@ config.module = {
 
 config.mode = process.env.NODE_ENV || 'development';
 
-// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-// config.optimization = {
-//   minimizer: [
-//     new UglifyJsPlugin({
-//       exclude: /node_modules/,
-//     })
-//   ],
-// };
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+config.optimization = {
+  minimizer: [
+    new UglifyJsPlugin({
+      exclude: /node_modules/,
+    })
+  ],
+};
 
 module.exports = config;

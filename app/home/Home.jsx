@@ -19,12 +19,14 @@ export default class Home extends React.Component {
       summary: null,
       request: { summary: null },
     }
+    this.abortController = new AbortController()
   }
 
   componentDidMount() {
     document.title = 'Your-Book-List';
 
-    getFeed((results)=>{
+    getFeed(this.abortController.signal, (err, results)=>{
+      if (err) return;
       this.setState({ RSSItems: results })
     });
 
@@ -46,6 +48,7 @@ export default class Home extends React.Component {
     if (this.state.request.summary) {
       this.state.request.summary.abort();
     }
+    this.abortController.abort();
   }
 
   render() {
@@ -79,7 +82,7 @@ export default class Home extends React.Component {
         var addPrompt =
           <div className="homeHeader" key='a'>
             <p>Your reading list is empty!</p>
-            <Link to='/'><button>Add book</button></Link>
+            <Link to='/book/add'><button>Add book</button></Link>
           </div>
         ;
         displayHeader.push(addPrompt);

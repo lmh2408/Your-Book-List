@@ -16,11 +16,17 @@ export default class ViewBook extends React.Component {
       display: 'loading', // 'found' / 'not found' / loading / 'error'
       data: null,
       owned: false,
-    }
+      blockButtons: false,
+    };
+    this.abortController = new AbortController();
   }
 
   componentDidMount() {
     this.updateView();
+  }
+
+  componentWillUnmount() {
+    this.abortController.abort();
   }
 
   componentDidUpdate(prevProps) {
@@ -32,20 +38,20 @@ export default class ViewBook extends React.Component {
   updateView = ()=>{
     this.setState({ display: 'loading' });
 
-    getBookData(this.props.bookId, (err, data)=>{
-      if (err === 'Not found') {
+    getBookData(this.abortController.signal, this.props.bookId, (err, data)=>{
+      if (err === 404 || !data) {
         return this.setState({display: 'not found'});
       }
-      else if (err === 'Not authenticated') {
+      else if (err === 401) {
         return this.context.setAppContext('authenticated', false);
       }
 
       var ownedState = true;
-      if (err === 'Not on list') {
+      if (!data.userData) {
         var ownedState = false;
       }
 
-      this.setState({ data: data, owned: ownedState });
+      this.setState({ display: 'found', data: data, owned: ownedState });
     })
   }
 
@@ -62,59 +68,80 @@ export default class ViewBook extends React.Component {
     this.setState((state)=>{
       var newData = state.data;
       newData.userData = data;
-      return { data: newData, owned: ownedState };
+      console.log(newData);
+      return { data: newData, owned: ownedState, blockButtons: false};
     });
   }
 
   addBook = (status)=>{
     var id = this.state.data.bookData.text_id;
     addToList(id, status, (err, data)=>{
-      addChangeDeleteCallback(err, data, true);
+      this.addChangeDeleteCallback(err, data, true);
     });
   }
 
   changeBook = (status)=>{
     var id = this.state.data.bookData.text_id;
     changeInList(id, status, (err, data)=>{
-      addChangeDeleteCallback(err, data, true);
+      this.addChangeDeleteCallback(err, data, true);
     });
   }
 
   removeBook = ()=>{
     var id = this.state.data.bookData.text_id;
     deleteFromList(id, (err, data)=>{
-      addChangeDeleteCallback(err, data, false);
+      this.addChangeDeleteCallback(err, data, false);
     })
   }
 
+  turnOffButton = ()=>{
+    this.setState({blockButtons: true})
+  }
 
   render() {
     if (this.state.display === 'found') {
 
       var bookData = this.state.data.bookData;
       var userData = this.state.data.userData;
-      var metadata = book.metadata;
-      var thumbnail = `http://www.gutenberg.org/cache/epub/${book.text_id}/pg${book.text_id}.cover.medium.jpg`;
-
+      var metadata = bookData.metadata;
+      var thumbnail = `http://www.gutenberg.org/cache/epub/${bookData.text_id}/pg${bookData.text_id}.cover.medium.jpg`;
+      var link = `http://www.gutenberg.org/ebooks/${bookData.text_id}`;
       return (
 
         <Fragment>
-          <p>{book.title}</p>
-          <div><img src={thumbnail} alt=""/></div>
+          <div className='viewBookContainer'>
+            <a href={link} target='_blank'>
+              <p className='viewBookHeader'>{metadata.title}</p>
+              <div className='viewBookThumbnail'>
+                <img src={thumbnail} alt=''/>
+                <span>{metadata.title}</span>
+                {(()=>{
+                  if (userData) {
+                    return <div>{userData.status}</div>;
+                  }
+                })()}
+              </div>
+            </a>
 
-          <ViewBookButtons
-            owned={this.state.owned}
-            status={userData.status}
-            addBook={this.addBook}
-            changeBook={this.changeBook}
-            removeBook={this.removeBook}
-            />
+            <ViewBookButtons
+              owned={this.state.owned}
+              userData={userData}
+              addBook={this.addBook}
+              changeBook={this.changeBook}
+              removeBook={this.removeBook}
+              turnOffButton={this.turnOffButton}
+              blockButtons={this.state.blockButtons}
+              />
 
-          <div>
-            <p><b>Language:</b> {metadata.language}</p>
-            <p><b>Author:</b> {metadata.author}</p>
-            <p><b>Subject:</b></p>
-            {metadata.map((subject, i)=>(<p key={i}>{subject}</p>))}
+            <div className='viewBookInfo'>
+              <p><b>Language:</b> {metadata.language}</p>
+              <p><b>Author:</b> {metadata.author}</p>
+              <p><b>Subject:</b></p>
+              {(()=>{
+                if (metadata.subject)
+                  return metadata.subject.map((subject, i)=>(<p key={i}>{subject}</p>));
+              })()}
+            </div>
           </div>
         </Fragment>
 
@@ -124,26 +151,28 @@ export default class ViewBook extends React.Component {
     else if (this.state.display === 'loading') {
 
       return (
-
-        <p>Getting book data...</p>
-
+        <div className='viewBookLoading'>
+          <p>Getting book data...</p>
+        </div>
       );
 
     }
     else if (this.state.display === 'not found') {
 
       return (
-
-        <p>Can't find a book with that id :(</p>
-
+        <div className="viewBookLoading viewBookNotFound">
+          <p>Can't find a book with that id :(</p>
+        </div>
       );
 
     }
     else if (this.state.display === 'error') {
       return (
 
-        <p>This app just tripped on a rock and fall off a cliff :(</p>
-        <p>Hit F5 button to revive it.</p>
+        <div className='viewBookLoading viewBookError'>
+          <p>This app just tripped on a rock and fall off a cliff :(</p>
+          <p>Hit F5 button to revive it.</p>
+        </div>
 
       );
     }

@@ -1,0 +1,154 @@
+%listBook-ext-inputFont
+  padding-left: 0.5em
+  padding-top: 0.2em
+  padding-bottom: 0.2em
+  font-size: 0.9rem
+  font-family: 'open sans', sans-serif
+
+%listBook-ext-boxColor
+  border: 1px solid black
+  background: white
+
+%listBook-ext-hrpadding
+  padding-left: 1em
+  padding-right: 1em
+
+.listBook-inputContainer
+  padding-top: 0.5em
+  padding-bottom: 0.5em
+
+  @extend %listBook-ext-hrpadding
+
+  div:first-of-type
+    @extend %listBook-ext-boxColor
+    position: relative
+    width: 9em
+    overflow: hidden
+    margin-left: auto
+
+
+    select
+      position: relative
+      text-transform: capitalize
+      border: none
+      width: 11.5em
+      background: transparent
+      z-index: 3
+      cursor: pointer
+      @extend %listBook-ext-inputFont
+
+    span
+      position: absolute
+      font-family: 'roboto', sans-serif
+      transform: scale(1, 0.4)
+      font-size: 1.6rem
+      right: 0.4em
+      top: -0.1em
+      z-index: 1
+
+  input
+    @extend %listBook-ext-inputFont
+    @extend %listBook-ext-boxColor
+    margin-top: 1em
+    display: block
+    height: 2.1em
+    width: 13em
+    margin-left: auto
+
+
+  button
+    @extend %listBook-ext-boxColor
+    display: block
+    margin-top: 1em
+    font-family: 'open sans', sans-serif
+    font-weight: bold
+    font-size: 0.9em
+    margin-left: auto
+    height: 2.5em
+    width: 6em
+
+  p
+    text-align: center
+    font-size: 1rem
+    font-family: 'open sans', sans-serif
+    margin-top: 1em
+    margin-bottom: 1em
+
+
+.listBook-navButtons
+  text-align: center
+
+  button
+    font-family: 'open sans', sans-serif
+    background: white
+    border: 1px solid black
+    font-size: 1em
+    padding: 0.1em 1.7em
+    font-weight: bold
+
+
+.listBook-listContainer
+  position: relative
+  padding-top: 2.5em
+  padding-bottom: 2.5em
+  @extend %listBook-ext-hrpadding
+
+.listBook-itemContainer
+  margin-bottom: 1.5em
+
+  hr
+    border-color: black
+    border-style: solid
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5)
+    margin-bottom: 0
+    margin-top: 1em
+
+
+.listBook-thumbnail
+  border: 1px solid black
+  overflow: hidden
+  width: 4em
+  height: 5.5em
+  display: none
+
+  img
+    height: 100%
+    width: 100%
+    object-fit: cover
+    object-position: top
+
+
+.listBook-itemName
+  p
+    font-family: 'roboto', sans-serif
+    font-size: 0.8rem
+    font-weight: bold
+
+.listBook-itemStatus
+  border: 1px solid black
+  width: 6em
+  text-align: center
+  margin-top: 1em
+
+  p
+    font-size: 0.8rem
+    font-family: 'open sans', sans-serif
+    text-transform: capitalize
+    margin: 0.2em 0
+
+
+.listBook-noItem
+
+@media (min-width: 750px)
+  .listBook-thumbnail
+    display: inline-block
+
+  .listBook-itemInfo
+    display: inline-block
+    width: 80%
+    margin-left: 1em
+    position: absolute
+
+  .listBook-inputContainer, .listBook-listContainer
+    width: 750px
+    margin: 0 auto
