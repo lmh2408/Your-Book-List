@@ -36,12 +36,8 @@ var sess = {
   secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    store: new RedisStore({
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-      db: process.env.REDIS_DB,
-    }),
+  store: new RedisStore({url: process.env.REDIS_URL}),
+  cookie: {  
     unset: 'destroy'
   }
 };

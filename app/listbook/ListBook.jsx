@@ -30,6 +30,7 @@ export default class ListBook extends React.Component {
   }
 
   componentDidMount() {
+    document.title = 'Your-Book-List/List of books';
     this.getBookList(
       this.state.input.name,
       this.state.input.filter,

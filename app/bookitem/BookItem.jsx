@@ -10,6 +10,10 @@ export default class BookItem extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    document.title = `Your-Book-List/${this.props.match.params.bookid}`;
+  }
+
   goBack = ()=>{
     this.props.history.goBack();
   }

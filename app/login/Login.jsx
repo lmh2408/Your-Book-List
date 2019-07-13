@@ -32,7 +32,7 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
-    document.title = 'Your-Book-List/Login';
+    document.title = 'Your-Book-List/Log In';
   }
 
   componentWillUnmount() {

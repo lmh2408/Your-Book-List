@@ -4,7 +4,7 @@ import { AppContext } from '../context.jsx';
 
 export default class Logout extends React.Component {
   static contextType = AppContext;
-  
+
   constructor(props) {
     super(props);
   }
@@ -22,12 +22,13 @@ export default class Logout extends React.Component {
   }
 
   componentDidMount() {
+    document.title = 'Your-Book-List/Log Out';
     this.sendLogOutRequest();
   }
 
   render() {
     return (
-      <h1>Logging Out...</h1>
+      <p>Logging Out...</p>
     );
   }
 }

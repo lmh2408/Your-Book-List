@@ -16,6 +16,10 @@ export default class AddBook extends React.Component {
     this.findBookThrottled = throttle(this.findBook, 500);
   }
 
+  componentDidMount() {
+    document.title = 'Your-Book-List/Add Book';
+  }
+
   componentWillUnmount() {
     this.findBookThrottled.cancel();
   }

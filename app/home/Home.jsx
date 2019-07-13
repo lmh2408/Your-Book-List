@@ -24,7 +24,6 @@ export default class Home extends React.Component {
 
   componentDidMount() {
     document.title = 'Your-Book-List';
-
     getFeed(this.abortController.signal, (err, results)=>{
       if (err) return;
       this.setState({ RSSItems: results })
