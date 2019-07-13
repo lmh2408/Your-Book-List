@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 var mongoose = require('mongoose');
-mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false});
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', ()=>{console.log('Connected to '+ process.env.DATABASE_URL)});
@@ -37,7 +37,7 @@ var sess = {
   resave: false,
   saveUninitialized: false,
   store: new RedisStore({url: process.env.REDIS_URL}),
-  cookie: {  
+  cookie: {
     unset: 'destroy'
   }
 };
