@@ -28,5 +28,5 @@ config.module = {
   ]
 }
 
-config = process.env.NODE_ENV || 'development';
+config.mode = process.env.NODE_ENV || 'development';
 module.exports = config;
