@@ -53,6 +53,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+app.get('*', (req, res, next) => {
+  if (req.headers['x-forwarded-proto'] != 'https'){
+    res.redirect('https://' + req.hostname + req.url);
+  } else {
+    next();
+  }
+});
 app.use('/', indexRouter);
 
 
