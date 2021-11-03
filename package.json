@@ -28,7 +28,7 @@
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "rss-parser": "^3.7.2",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
